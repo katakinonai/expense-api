@@ -1,0 +1,72 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+env/
+venv/
+ENV/
+.venv/
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.bak
+*.swp
+*.swo
+*.~*
+
+# Dependency files
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environment variables
+.env
+.env.*
+
+# Testing and coverage reports
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.cache/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Static file collections (for Django projects)
+staticfiles/
+media/
+node_modules/
+
+# Database files
+*.sqlite3
+db.sqlite3
+
+# FastAPI specific
+instance/
+
+# Docker and container files
+docker-compose.override.yml
+*.pid
+*.seed
+
+# Security and private keys
+*.pem
+*.key
+*.crt
