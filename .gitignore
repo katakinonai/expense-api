@@ -31,7 +31,6 @@ Thumbs.db
 # Dependency files
 *.egg-info/
 dist/
-build/
 *.egg
 
 # Environment variables
@@ -70,3 +69,5 @@ docker-compose.override.yml
 *.pem
 *.key
 *.crt
+
+*.db
