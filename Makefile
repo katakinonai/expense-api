@@ -4,3 +4,6 @@ lint: python-lint
 
 python-lint:
 	$(REPO_DIR)/python-lint.sh . $(REPO_DIR)
+
+serve:
+	source .venv/bin/activate; uvicorn app.main:app --reload
