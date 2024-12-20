@@ -7,8 +7,10 @@ Build an API for an expense tracker application. This API should allow users to 
 To start the project, you need to clone the repository and install the dependencies.
 
 ```sh
-git clone
+git clone https://github.com/katakinonai/expense-api.git
 cd expense-api
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r build/requirements.txt
 ```
 
@@ -17,6 +19,11 @@ To run the project, you need to run the following command:
 ```sh
 make serve
 ```
+
+## Docs
+To see the API documentation, you need to open the following link in your browser:
+
+http://127.0.0.1:8000/docs
 
 ## Expense Tracker API
 ### Features
