@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime
-from typing import Optional
+from typing import Optional, List
 
 from sqlalchemy.orm import Session
 from app.models import models
@@ -35,6 +35,7 @@ def get_expenses(
     filter_type: Optional[str] = None,
     start_date: Optional[datetime] = None,
     end_date: Optional[datetime] = None,
+    categories: Optional[List[str]] = None,
 ):
     query = db.query(models.Expense).filter(models.Expense.user_id == user_id)
 
@@ -52,6 +53,9 @@ def get_expenses(
 
     if start_date and end_date:
         query = query.filter(models.Expense.date.between(start_date, end_date))
+
+    if categories:
+        query = query.filter(models.Expense.category.in_(categories))
 
     return query.all()
 
