@@ -1,5 +1,6 @@
 from datetime import timedelta, datetime
-from typing import Optional, List
+from app.src.crud.data_structs import Categories
+from typing import Optional
 
 from sqlalchemy.orm import Session
 from app.models import models
@@ -10,12 +11,15 @@ def create_expense(
     db: Session,
     user_id: int,
     amount: float,
-    category: str,
+    category: Optional[str] = None,
     description: Optional[str] = None,
     date: Optional[datetime] = None,
 ) -> models.Expense:
-    if date is None:
+    if not date:
         date = datetime.utcnow()
+    if not category:
+        category = Categories.OTHERS
+
     expense = models.Expense(
         user_id=user_id,
         amount=amount,
@@ -35,7 +39,7 @@ def get_expenses(
     filter_type: Optional[str] = None,
     start_date: Optional[datetime] = None,
     end_date: Optional[datetime] = None,
-    categories: Optional[List[str]] = None,
+    category: Optional[str] = None,
 ):
     query = db.query(models.Expense).filter(models.Expense.user_id == user_id)
 
@@ -50,12 +54,17 @@ def get_expenses(
                 start_date = now - timedelta(weeks=4)
             case DateFilter.YEAR:
                 start_date = now - timedelta(days=365)
+            case _:
+                start_date = None
+
+    if not end_date:
+        end_date = datetime.utcnow()
 
     if start_date and end_date:
         query = query.filter(models.Expense.date.between(start_date, end_date))
 
-    if categories:
-        query = query.filter(models.Expense.category.in_(categories))
+    if category:
+        query = query.filter(models.Expense.category == category)
 
     return query.all()
 

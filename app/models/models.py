@@ -21,7 +21,7 @@ class Expense(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     amount = Column(Float)
-    category = Column(String)
+    category = Column(String, default="others")  # Default category
     description = Column(String)
     date = Column(DateTime, default=datetime.utcnow)
 
