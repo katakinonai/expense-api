@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 
 from app.db.database import get_db
 from app.models.models import User
-from app.schemas.schemas import UserCreate, UserResponse, LoginRequest
+from app.schemas.schemas import UserCreate, UserResponse
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from fastapi import HTTPException, Depends
@@ -93,7 +93,7 @@ async def login(request: Request, db: Session = Depends(get_db)) -> Dict[str, st
         password = login_request.get("password")
 
     user: Optional[User] = db.query(User).filter(User.username == username).first()
-    if not user or not verify_password(password, str(user.password_hash)):
+    if not user or not verify_password(str(password), str(user.password_hash)):
         raise HTTPException(status_code=400, detail="Invalid username or password")
     access_token: str = create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
