@@ -9,3 +9,10 @@ class Categories:
     SHOPPING: str = "shopping"
     SAVINGS: str = "savings"
     OTHERS: str = "others"
+
+
+class DateFilter:
+    DAY: str = "day"
+    WEEK: str = "week"
+    MONTH: str = "month"
+    YEAR: str = "year"

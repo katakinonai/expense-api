@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Body
+from fastapi import APIRouter, Depends, HTTPException, Body, Query
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
@@ -57,9 +57,19 @@ def create_expense(
     tags=["Expenses"],
 )
 def get_expenses(
-    filter_type: Optional[str] = None,
-    start_date: Optional[datetime] = None,
-    end_date: Optional[datetime] = None,
+    filter_type: Optional[str] = Query(
+        None,
+        description="(Optional) Filter expenses by their type (e.g., 'day', 'week', 'month', 'year').",
+    ),
+    category: Optional[str] = Query(
+        None, description="(Optional) Filter expenses by category."
+    ),
+    start_date: Optional[datetime] = Query(
+        None, description="(Optional) Start date to filter expenses."
+    ),
+    end_date: Optional[datetime] = Query(
+        None, description="(Optional) End date to filter expenses."
+    ),
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ) -> List[models.Expense]:
@@ -67,7 +77,8 @@ def get_expenses(
     Get a list of expenses for the logged-in user.
 
     Parameters:
-    - filter_type: (Optional) Filter expenses by their type (e.g., "food", "transport").
+    - filter_type: (Optional) Filter expenses by their type (e.g., "day", "week", "month", "year").
+    - category (Optional): Filter expenses by category.
     - start_date: (Optional) Start date to filter expenses.
     - end_date: (Optional) End date to filter expenses.
     - db: Database session dependency.
@@ -80,6 +91,7 @@ def get_expenses(
         db=db,
         user_id=current_user.id,
         filter_type=filter_type,
+        category=category,
         start_date=start_date,
         end_date=end_date,
     )
