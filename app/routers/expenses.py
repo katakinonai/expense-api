@@ -27,6 +27,7 @@ def create_expense(
 @router.get("/expenses", response_model=List[schemas.Expense])
 def get_expenses(
     filter_type: Optional[str] = None,
+    categories: Optional[List[str]] = None,
     start_date: Optional[datetime] = None,
     end_date: Optional[datetime] = None,
     db: Session = Depends(get_db),
@@ -36,6 +37,7 @@ def get_expenses(
         db=db,
         user_id=current_user.id,
         filter_type=filter_type,
+        categories=categories,
         start_date=start_date,
         end_date=end_date,
     )
