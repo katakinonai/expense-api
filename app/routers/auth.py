@@ -1,11 +1,11 @@
 from typing import Optional, Dict, Union
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from fastapi.security import OAuth2PasswordBearer
 
 from app.db.database import get_db
 from app.models.models import User
-from app.schemas.schemas import UserCreate, UserResponse
+from app.schemas.schemas import UserCreate, UserResponse, LoginRequest
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from fastapi import HTTPException, Depends
@@ -82,9 +82,18 @@ def signup(user: UserCreate, db: Session = Depends(get_db)) -> User:
 
 
 @router.post("/login")
-def login(email: str, password: str, db: Session = Depends(get_db)) -> Dict[str, str]:
-    user: Optional[User] = db.query(User).filter(User.email == email).first()
+async def login(request: Request, db: Session = Depends(get_db)) -> Dict[str, str]:
+    form_data = await request.form()
+    if form_data:
+        username = form_data.get("username")
+        password = form_data.get("password")
+    else:
+        login_request = await request.json()
+        username = login_request.get("email")
+        password = login_request.get("password")
+
+    user: Optional[User] = db.query(User).filter(User.username == username).first()
     if not user or not verify_password(password, str(user.password_hash)):
-        raise HTTPException(status_code=400, detail="Invalid email or password")
+        raise HTTPException(status_code=400, detail="Invalid username or password")
     access_token: str = create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
