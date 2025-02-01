@@ -1,12 +1,8 @@
-name: CI - Lint
+name: Linters
 
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
 
 jobs:
   lint:
@@ -26,4 +22,4 @@ jobs:
 
       - name: Run linters inside container
         run: |
-          docker run --rm expense_api ./python-lint.sh
+          docker run --rm expense_api

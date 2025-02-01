@@ -17,7 +17,12 @@ FROM base as lint
 COPY build/requirements-dev.txt .
 RUN pip install --no-cache-dir -r requirements-dev.txt
 
-COPY build/python-lint.sh /python-lint.sh
-RUN chmod +x /python-lint.sh
+COPY app/ app/
+COPY tests/ /app/tests/
 
-CMD ["make", "lint"]
+COPY pyproject.toml /app/pyproject.toml
+COPY python-lint.sh /app/python-lint.sh
+
+RUN chmod +x /app/python-lint.sh
+
+CMD ["bash", "/app/python-lint.sh", "/app", "/app"]
