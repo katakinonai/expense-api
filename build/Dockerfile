@@ -18,6 +18,7 @@ COPY build/requirements-dev.txt .
 RUN pip install --no-cache-dir -r requirements-dev.txt
 
 COPY app/ app/
+COPY tests/ /app/tests/
 
 COPY pyproject.toml /app/pyproject.toml
 COPY python-lint.sh /app/python-lint.sh
