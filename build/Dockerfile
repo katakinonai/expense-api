@@ -19,9 +19,9 @@ RUN pip install --no-cache-dir -r requirements-dev.txt
 
 COPY app/ app/
 
-COPY pyproject.toml /pyproject.toml
-COPY python-lint.sh /python-lint.sh
+COPY pyproject.toml /app/pyproject.toml
+COPY python-lint.sh /app/python-lint.sh
 
-RUN chmod +x /python-lint.sh
+RUN chmod +x /app/python-lint.sh
 
-CMD ["bash", "/python-lint.sh", ".", "."]
+CMD ["bash", "./app/python-lint.sh", "/app", "/app"]
