@@ -3,3 +3,4 @@ black==23.9.1  # Adjust version if newer is available
 mypy==1.5.1
 pylint==2.17.5
 flake8==6.1.0
+ruff==0.9.4

@@ -21,3 +21,7 @@ echo "======================================"
 echo "->Checking by pylint"
 echo "======================================"
 pylint $2/app $2/tests --disable=R,C --unsafe-load-any-extension=y
+echo "======================================"
+echo "->Checking by ruff"
+echo "======================================"
+ruff format --check && ruff check .
