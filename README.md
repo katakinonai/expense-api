@@ -4,11 +4,29 @@
 Build an API for an expense tracker application. This API should allow users to create, read, update, and delete expenses. Users should be able to sign up and log in to the application. Each user should have their own set of expenses.
 
 ## Start
-To start the project, you need to clone the repository and install the dependencies.
+To start the project locally, you first need to clone the repository:
 
 ```sh
 git clone https://github.com/katakinonai/expense-api.git
 cd expense-api
+```
+
+### Docker
+
+Instructions for running as a Docker container:
+
+```sh
+docker build -t expense_api:latest .
+docker run -p 8000:8000 expense_api
+```
+
+App is now available at http://localhost:8000.
+
+### Run locally
+
+Create a Python virtual env and install dependencies:
+
+```sh
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r build/requirements.txt
@@ -19,6 +37,7 @@ To run the project, you need to run the following command:
 ```sh
 make serve
 ```
+App is now available at http://localhost:8000.
 
 ## Docs
 To see the API documentation, you need to open the following link in your browser:
@@ -28,7 +47,7 @@ http://127.0.0.1:8000/docs
 ## Expense Tracker API
 ### Features
 
-Here are the features that you should implement in your Expense Tracker API:
+Here are the features that are implemented in Expense Tracker API:
 
     - Sign up as a new user.
     - Generate and validate JWTs for handling authentication and user session.
@@ -40,22 +59,3 @@ Here are the features that you should implement in your Expense Tracker API:
     - Add a new expense
     - Remove existing expenses
     - Update existing expenses
-
-### Constraints
-
-You can use any programming language and framework of your choice. You can use a database of your choice to store the data. You can use any ORM or database library to interact with the database.
-
-Here are some constraints that you should follow:
-
-    - You’ll be using JWT (JSON Web Token) to protect the endpoints and to identify the requester.
-    - For the different expense categories, you can use the following list (feel free to decide how to implement this as part of your data model):
-        * Groceries
-        * Leisure
-        * Electronics
-        * Utilities
-        * Clothing
-        * Health
-        * Others
-
-This is the last “beginner” project in the backend roadmap. If you have completed all the projects in the backend roadmap, you should have a good understanding of how to build a backend application. You can now move on to the “intermediate” projects in the backend roadmap.
-
