@@ -1,0 +1,29 @@
+name: CI - Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker BuildKit
+        run: |
+          echo "BUILD_KIT=1" >> $GITHUB_ENV
+
+      - name: Build temporary Docker image for linting
+        run: |
+          docker build --target lint -t expense_api -f build/Dockerfile .
+
+      - name: Run linters inside container
+        run: |
+          docker run --rm expense_api ./python-lint.sh
