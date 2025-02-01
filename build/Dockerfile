@@ -24,4 +24,4 @@ COPY python-lint.sh /python-lint.sh
 
 RUN chmod +x /python-lint.sh
 
-CMD ["bash", "/python-lint.sh", "."]
+CMD ["bash", "/python-lint.sh", ".", "."]
